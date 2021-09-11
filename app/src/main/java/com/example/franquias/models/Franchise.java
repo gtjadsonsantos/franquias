@@ -1,14 +1,16 @@
-package franquias.models;
+package com.example.franquias.models;
 
-public class Franchise {
+import java.io.Serializable;
+
+public class Franchise implements Serializable {
     private String name;
     private String description;
-    private Object image;
+    private int image;
     private Restaurant[] restaurants;
 
     public Franchise() {}
     
-    public Franchise(String name, String description, Object image) {
+    public Franchise(String name, String description, int image) {
         this.name = name;
         this.description = description;
         this.image = image;
@@ -28,10 +30,10 @@ public class Franchise {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Object getImage() {
+    public int getImage() {
         return image;
     }
-    public void setImage(Object image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
@@ -42,6 +44,6 @@ public class Franchise {
         this.restaurants = restaurants;
     }
 
-    
+
 
 }
