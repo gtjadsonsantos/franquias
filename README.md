@@ -18,7 +18,7 @@
 
 Esse projeto usa a licença MIT license - veja o arquivo [LICENSE](LICENSE) para mais detalhes
 
-# Auto
+# Autor
 
 <table>
   <tr>
