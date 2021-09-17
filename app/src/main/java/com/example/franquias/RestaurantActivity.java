@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,18 @@ public class RestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
 
+        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.arrowleft);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                setContentView(R.layout.activity_main);
+            }
+        });
+
         Intent i = getIntent();
         Franchise franchise = (Franchise) i.getSerializableExtra("Franchise");
 
@@ -31,20 +44,6 @@ public class RestaurantActivity extends AppCompatActivity {
         restaurantDescription.setText(franchise.getDescription());
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.llRestaurants);
-
-        Button comeBack = (Button) findViewById(R.id.comeBack);
-
-        comeBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                setContentView(R.layout.activity_main);
-            }
-        });
-
-        System.out.println(franchise.getRestaurants().length);
-
 
         for (Restaurant r : franchise.getRestaurants()) {
 

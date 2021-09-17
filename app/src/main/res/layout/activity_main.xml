@@ -11,13 +11,13 @@
     <ScrollView
         android:id="@+id/MainActivityScrollView"
         android:layout_width="374dp"
-        android:layout_height="537dp"
+        android:layout_height="528dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551">
+        app:layout_constraintVertical_bias="0.798">
 
         <LinearLayout
             android:id="@+id/llItems"
@@ -25,5 +25,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
+    <EditText
+        android:id="@+id/inputFindFranchise"
+        android:layout_width="362dp"
+        android:layout_height="58dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.109" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

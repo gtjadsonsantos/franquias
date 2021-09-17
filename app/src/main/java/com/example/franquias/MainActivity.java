@@ -2,16 +2,20 @@ package com.example.franquias;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.franquias.models.Franchise;
 import com.example.franquias.models.Restaurant;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -127,15 +131,102 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout ll=(LinearLayout) findViewById(R.id.llItems);
 
-        Franchise[] franchises = new Franchise[]{
-                billyTheGrill,
-                chinaInBox,
-                griletto,
-                mcDonald,
-                giraffas,
-                habibs,
-                outback
-        };
+        ArrayList<Franchise> franchises = new ArrayList<Franchise>();
+
+        franchises.add(billyTheGrill);
+        franchises.add(chinaInBox);
+        franchises.add(griletto);
+        franchises.add(mcDonald);
+        franchises.add(giraffas);
+        franchises.add(habibs);
+        franchises.add(outback);
+
+        TextView inputFindFranchise = findViewById(R.id.inputFindFranchise);
+
+        inputFindFranchise.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @SuppressLint("NewApi")
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                ll.removeAllViews();
+                if (cs.equals("")){
+                    franchises.add(billyTheGrill);
+                    franchises.add(chinaInBox);
+                    franchises.add(griletto);
+                    franchises.add(mcDonald);
+                    franchises.add(giraffas);
+                    franchises.add(habibs);
+                    franchises.add(outback);
+                }else {
+
+                    franchises.forEach(f -> {
+                        boolean find = f.getName().toLowerCase().startsWith(cs.toString().toLowerCase());
+
+                        if(find){
+                            LinearLayout horizontalLL = new LinearLayout(ll.getContext());
+                            horizontalLL.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                            horizontalLL.setOrientation(LinearLayout.HORIZONTAL);
+
+                            ll.addView(horizontalLL);
+
+                            ImageView iv = new ImageView(getApplicationContext());
+                            iv.setImageDrawable(getDrawable(f.getImage()));
+                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(200, 300);
+
+                            iv.setLayoutParams(lp);
+                            horizontalLL.addView(iv);
+
+                            LinearLayout verticalLL  = new LinearLayout(ll.getContext());
+                            verticalLL.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                            verticalLL.setOrientation(LinearLayout.VERTICAL);
+
+                            TextView name= new TextView(ll.getContext());
+                            name.setText(f.getName());
+                            name.setTextSize(22f);
+                            name.setPadding(10,30,2,15);
+
+                            TextView description= new TextView(ll.getContext());
+                            description.setText(f.getDescription());
+                            description.setTextSize(9f);
+                            description.setPadding(10,1,2,15);
+                            description.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+
+                            verticalLL.addView(name);
+                            verticalLL.addView(description);
+
+                            horizontalLL.addView(verticalLL);
+
+                            horizontalLL.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    Intent intent = new Intent(getApplicationContext(), RestaurantActivity.class);
+                                    intent.putExtra("Franchise", f);
+                                    startActivity(intent);
+
+                                    setContentView(R.layout.activity_restaurant);
+                                }
+                            });
+
+                        }
+
+                    });
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+        });
 
         for(Franchise f: franchises) {
 
